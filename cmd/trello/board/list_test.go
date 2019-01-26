@@ -36,9 +36,11 @@ func TestDisplayBoards(t *testing.T) {
 	tt := []struct {
 		name   string
 		output string
+		closed bool
 		err    error
 	}{
-		{name: "can return a list of boards", output: "Magical board\n", err: nil},
+		{name: "can return a list of all boards", output: "Magical board\nAdventure board\n", closed: true, err: nil},
+		{name: "can return a list of non closed boards", output: "Magical board\n", closed: false, err: nil},
 		{name: "returns error if we cannot get list of boards", output: "", err: errors.New("something")},
 	}
 
@@ -50,7 +52,12 @@ func TestDisplayBoards(t *testing.T) {
 
 			boards := trello.Boards{
 				{
-					Name: "Magical board",
+					Name:   "Magical board",
+					Closed: false,
+				},
+				{
+					Name:   "Adventure board",
+					Closed: true,
 				},
 			}
 
@@ -63,7 +70,11 @@ func TestDisplayBoards(t *testing.T) {
 			var b bytes.Buffer
 			writer := bufio.NewWriter(&b)
 
-			board.DisplayBoards(client, writer)
+			opts := board.ListOptions{
+				ShowClosed: tc.closed,
+			}
+
+			board.DisplayBoards(client, opts, writer)
 			writer.Flush()
 
 			if b.String() != tc.output {
