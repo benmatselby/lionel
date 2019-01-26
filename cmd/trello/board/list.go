@@ -9,13 +9,22 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// ListOptions provides the flags for the `list` command
+type ListOptions struct {
+	ShowClosed bool
+	refs       []string
+}
+
 // NewListCommand creates a new `board list` command
 func NewListCommand(client trello.API) *cobra.Command {
+	var opts ListOptions
+
 	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List all the boards",
 		Run: func(cmd *cobra.Command, args []string) {
-			err := DisplayBoards(client, os.Stdout)
+			opts.refs = args
+			err := DisplayBoards(client, opts, os.Stdout)
 			if err != nil {
 				fmt.Print(err)
 				os.Exit(1)
@@ -23,18 +32,23 @@ func NewListCommand(client trello.API) *cobra.Command {
 		},
 	}
 
+	flags := cmd.Flags()
+	flags.BoolVar(&opts.ShowClosed, "show-closed", false, "Display closed boards?")
+
 	return cmd
 }
 
 // DisplayBoards will render the boards you have access to
-func DisplayBoards(client trello.API, w io.Writer) error {
+func DisplayBoards(client trello.API, opts ListOptions, w io.Writer) error {
 	boards, err := client.GetBoards()
 	if err != nil {
 		return err
 	}
 
 	for _, board := range boards {
-		fmt.Fprintln(w, board.Name)
+		if board.Closed != true || (board.Closed && opts.ShowClosed) {
+			fmt.Fprintln(w, board.Name)
+		}
 	}
 
 	return nil
