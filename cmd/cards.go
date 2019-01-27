@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/benmatselby/lionel/trello"
@@ -12,8 +13,8 @@ import (
 
 // ListCardOptions provides the flags for the `list` command
 type ListCardOptions struct {
-	ShowClosed bool
-	Args       []string
+	StripScrumTags bool
+	Args           []string
 }
 
 // NewListCardsCommand creates a new `board list` command
@@ -31,7 +32,8 @@ func NewListCardsCommand(client trello.API) *cobra.Command {
 	}
 
 	flags := cmd.Flags()
-	flags.BoolVar(&opts.ShowClosed, "show-closed", false, "Display closed boards?")
+	flags.BoolVar(&opts.StripScrumTags, "strip-scrum", false, `Remove the scrum for trello plugin brackets.
+These are normally () prefixes to the card name, with a number inside`)
 
 	return cmd
 }
@@ -59,7 +61,13 @@ func DisplayCards(client trello.API, opts ListCardOptions, w io.Writer) error {
 		for _, card := range cards {
 			if card.ListID == list.ID {
 				listCount++
-				listCards += fmt.Sprintf("* %s\n", card.Name)
+				cardName := card.Name
+
+				if opts.StripScrumTags == true {
+					re := regexp.MustCompile(`^\(.+?\) `)
+					cardName = re.ReplaceAllString(cardName, "")
+				}
+				listCards += fmt.Sprintf("* %s\n", cardName)
 			}
 		}
 

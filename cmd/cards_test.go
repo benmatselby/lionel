@@ -34,13 +34,25 @@ func TestNewListCardsCommand(t *testing.T) {
 
 func TestDisplayCards(t *testing.T) {
 	tt := []struct {
-		name     string
-		output   string
-		boardErr error
-		cardsErr error
-		listsErr error
+		name           string
+		output         string
+		StripScrumTags bool
+		boardErr       error
+		cardsErr       error
+		listsErr       error
 	}{
 		{name: "can return a list of cards", output: `To do (1)
+=========
+
+* (1) Perform the musical
+
+Progress (1)
+============
+
+* (250) Write a musical
+
+`, StripScrumTags: false, boardErr: nil},
+		{name: "can return a list of cards with scrum tags stripped if requested", output: `To do (1)
 =========
 
 * Perform the musical
@@ -50,7 +62,7 @@ Progress (1)
 
 * Write a musical
 
-`, boardErr: nil},
+`, StripScrumTags: true, boardErr: nil},
 		{name: "returns error if board cannot be found", output: "", boardErr: errors.New("something")},
 		{name: "returns error if there is an issue returning the cards", output: "", cardsErr: errors.New("something")},
 		{name: "returns error if there is an issue returning the lists", output: "", listsErr: errors.New("something")},
@@ -69,11 +81,11 @@ Progress (1)
 
 			cards := []trello.Card{
 				{
-					Name:   "Write a musical",
+					Name:   "(250) Write a musical",
 					ListID: "2",
 				},
 				{
-					Name:   "Perform the musical",
+					Name:   "(1) Perform the musical",
 					ListID: "1",
 				},
 			}
@@ -114,6 +126,7 @@ Progress (1)
 				Args: []string{
 					"a board",
 				},
+				StripScrumTags: tc.StripScrumTags,
 			}
 
 			cmd.DisplayCards(client, opts, writer)
