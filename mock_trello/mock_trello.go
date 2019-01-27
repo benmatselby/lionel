@@ -34,6 +34,21 @@ func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 	return m.recorder
 }
 
+// GetBoard mocks base method
+func (m *MockAPI) GetBoard(name string) (*trello.Board, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetBoard", name)
+	ret0, _ := ret[0].(*trello.Board)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetBoard indicates an expected call of GetBoard
+func (mr *MockAPIMockRecorder) GetBoard(name interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBoard", reflect.TypeOf((*MockAPI)(nil).GetBoard), name)
+}
+
 // GetBoards mocks base method
 func (m *MockAPI) GetBoards() ([]trello.Board, error) {
 	m.ctrl.T.Helper()
@@ -47,4 +62,34 @@ func (m *MockAPI) GetBoards() ([]trello.Board, error) {
 func (mr *MockAPIMockRecorder) GetBoards() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBoards", reflect.TypeOf((*MockAPI)(nil).GetBoards))
+}
+
+// GetCards mocks base method
+func (m *MockAPI) GetCards(board trello.Board) ([]trello.Card, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetCards", board)
+	ret0, _ := ret[0].([]trello.Card)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetCards indicates an expected call of GetCards
+func (mr *MockAPIMockRecorder) GetCards(board interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCards", reflect.TypeOf((*MockAPI)(nil).GetCards), board)
+}
+
+// GetLists mocks base method
+func (m *MockAPI) GetLists(board trello.Board) ([]trello.List, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLists", board)
+	ret0, _ := ret[0].([]trello.List)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetLists indicates an expected call of GetLists
+func (mr *MockAPIMockRecorder) GetLists(board interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLists", reflect.TypeOf((*MockAPI)(nil).GetLists), board)
 }

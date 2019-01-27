@@ -15,20 +15,16 @@ type ListBoardOptions struct {
 	refs       []string
 }
 
-// NewListBoardCommand creates a new `board list` command
-func NewListBoardCommand(client trello.API) *cobra.Command {
+// NewListBoardsCommand creates a new `board list` command
+func NewListBoardsCommand(client trello.API) *cobra.Command {
 	var opts ListBoardOptions
 
 	cmd := &cobra.Command{
 		Use:   "boards",
 		Short: "List all the boards",
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			opts.refs = args
-			err := DisplayBoards(client, opts, os.Stdout)
-			if err != nil {
-				fmt.Print(err)
-				os.Exit(1)
-			}
+			return DisplayBoards(client, opts, os.Stdout)
 		},
 	}
 

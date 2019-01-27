@@ -13,12 +13,12 @@ import (
 	"github.com/golang/mock/gomock"
 )
 
-func TestNewListCommand(t *testing.T) {
+func TestNewListBoardsCommand(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	client := mock_trello.NewMockAPI(ctrl)
 
-	cmd := cmd.NewListBoardCommand(client)
+	cmd := cmd.NewListBoardsCommand(client)
 
 	use := "boards"
 	short := "List all the boards"

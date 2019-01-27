@@ -43,7 +43,8 @@ func NewRootCommand() *cobra.Command {
 	client := trello.New()
 
 	cmd.AddCommand(
-		NewListBoardCommand(&client),
+		NewListBoardsCommand(&client),
+		NewListCardsCommand(&client),
 	)
 
 	return cmd
