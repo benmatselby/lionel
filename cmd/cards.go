@@ -11,13 +11,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// ListCardOptions provides the flags for the `list` command
+// ListCardOptions provides the flags for the `cards` command
 type ListCardOptions struct {
 	StripScrumTags bool
 	Args           []string
 }
 
-// NewListCardsCommand creates a new `board list` command
+// NewListCardsCommand creates a new `cards` command
 func NewListCardsCommand(client trello.API) *cobra.Command {
 	var opts ListCardOptions
 
