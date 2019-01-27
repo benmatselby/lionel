@@ -93,3 +93,18 @@ func (mr *MockAPIMockRecorder) GetLists(board interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLists", reflect.TypeOf((*MockAPI)(nil).GetLists), board)
 }
+
+// GetMember mocks base method
+func (m *MockAPI) GetMember(ID string) (*trello.Member, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetMember", ID)
+	ret0, _ := ret[0].(*trello.Member)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetMember indicates an expected call of GetMember
+func (mr *MockAPIMockRecorder) GetMember(ID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetMember", reflect.TypeOf((*MockAPI)(nil).GetMember), ID)
+}

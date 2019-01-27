@@ -17,6 +17,7 @@ type API interface {
 	GetBoards() ([]Board, error)
 	GetCards(board Board) ([]Card, error)
 	GetLists(board Board) ([]List, error)
+	GetMember(ID string) (*Member, error)
 }
 
 // Client is the Trello concrete implementation
@@ -71,10 +72,13 @@ func (c *Client) Get(url string, response interface{}) (*http.Response, error) {
 
 // Board defines what a single board looks like
 type Board struct {
-	ID     string `json:"id"`
-	Name   string `json:"name"`
-	Desc   string `json:"desc"`
-	Closed bool   `json:"closed"`
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Desc        string `json:"desc"`
+	Closed      bool   `json:"closed"`
+	Memberships []struct {
+		MemberID string `json:"idMember"`
+	} `json:"memberships"`
 }
 
 // GetBoards will return a list boards the user can access
@@ -108,8 +112,9 @@ func (c *Client) GetBoard(name string) (*Board, error) {
 
 // Card defines what a single card looks like
 type Card struct {
-	Name   string `json:"name"`
-	ListID string `json:"idList"`
+	Name          string   `json:"name"`
+	ListID        string   `json:"idList"`
+	MembershipIDs []string `json:"idMembers"`
 }
 
 // GetCards will return a set of cards for a given board name
@@ -142,4 +147,22 @@ func (c *Client) GetLists(board Board) ([]List, error) {
 	}
 
 	return response, nil
+}
+
+// Member represents a user
+type Member struct {
+	FullName string `json:"fullName"`
+}
+
+// GetMember will return users for a given ID
+func (c *Client) GetMember(ID string) (*Member, error) {
+	var response Member
+
+	url := fmt.Sprintf("/members/%s", ID)
+	_, err := c.Get(url, &response)
+	if err != nil {
+		return nil, fmt.Errorf("Unable to fulfil request %s: %s", url, err)
+	}
+
+	return &response, nil
 }
