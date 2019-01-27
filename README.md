@@ -30,6 +30,7 @@ Use "lionel [command] --help" for more information about a command.
 This application uses Go modules, so you will require:
 
 - [Go version 1.11+](https://golang.org/dl/)
+- Some of the features will require that you use the "[Scrum for Trello](http://scrumfortrello.com)" plugin in Trello
 
 ## Configuration
 

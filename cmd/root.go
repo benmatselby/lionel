@@ -44,6 +44,7 @@ func NewRootCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		NewListBoardsCommand(&client),
+		NewBurndownCommand(&client),
 		NewListCardsCommand(&client),
 	)
 
