@@ -9,13 +9,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// ListBoardOptions provides the flags for the `list` command
+// ListBoardOptions provides the flags for the `boards` command
 type ListBoardOptions struct {
 	ShowClosed bool
 	refs       []string
 }
 
-// NewListBoardsCommand creates a new `board list` command
+// NewListBoardsCommand creates a new `boards` command
 func NewListBoardsCommand(client trello.API) *cobra.Command {
 	var opts ListBoardOptions
 
