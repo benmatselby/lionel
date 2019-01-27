@@ -47,6 +47,7 @@ func NewRootCommand() *cobra.Command {
 		NewBurndownCommand(&client),
 		NewListCardsCommand(&client),
 		NewListCardsPeopleCommand(&client),
+		NewCompletionCommand(cmd),
 	)
 
 	return cmd
