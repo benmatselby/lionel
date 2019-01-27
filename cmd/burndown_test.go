@@ -42,10 +42,10 @@ func TestDisplayBurndown(t *testing.T) {
 	}{
 		{name: "can return a list of cards", output: `List     Cards Story Points
 ----     ----- ------------
-To do    1     1
-Progress 2     251
+To do    2     1
+Progress 1     250
 -----    ----- ------------
-Total    2     251
+Total    3     251
 -----    ----- ------------
 `, boardErr: nil},
 		{name: "returns error if board cannot be found", output: "", boardErr: errors.New("something")},
@@ -71,6 +71,10 @@ Total    2     251
 				},
 				{
 					Name:   "(1) Perform the musical",
+					ListID: "1",
+				},
+				{
+					Name:   "Paint a picture, just like how it use to be",
 					ListID: "1",
 				},
 			}

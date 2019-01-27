@@ -76,7 +76,7 @@ func DisplayBurndown(client trello.API, opts BurndownOptions, w io.Writer) error
 		}
 		totalCard += cardCount
 		totalPoint += pointCount
-		fmt.Fprintf(tw, "%s\t%v\t%v\n", list.Name, totalCard, totalPoint)
+		fmt.Fprintf(tw, "%s\t%v\t%v\n", list.Name, cardCount, pointCount)
 	}
 
 	fmt.Fprintf(tw, "%s\t%s\t%s\n", "-----", "-----", "------------")
