@@ -2,7 +2,7 @@ language: go
 go:
   - 1.x
 notifications:
-  email: always
+  email: true
 env:
   - GO111MODULE=on
 script:
