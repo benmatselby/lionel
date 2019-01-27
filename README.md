@@ -8,7 +8,7 @@ _Trello, is it more you're looking for..._
 
 CLI application for getting information out of [Trello](http://trello.com)
 
-```shell
+```text
 CLI application for retrieving data from Trello
 
 Usage:
@@ -19,6 +19,7 @@ Available Commands:
   burndown    Provide a burndown table using the 'scrum for trello' plugin data
   cards       List all the cards for a given board
   help        Help about any command
+  people      List all the cards for a given board sorted by the people the card is assigned to
 
 Flags:
       --config string   config file (default is $HOME/.lionel.yaml)
@@ -31,7 +32,7 @@ Use "lionel [command] --help" for more information about a command.
 
 The burndown table
 
-```shell
+```text
 $ lionel burndown "Sprint 2018.8"
 List           Cards Story Points
 ----           ----- ------------
@@ -48,7 +49,7 @@ Total          42    85
 
 The boards list
 
-```shell
+```text
 $ lionel boards
 How to earn a million dollars
 Family Days Out
@@ -58,7 +59,7 @@ Meal Ideas
 
 The cards list for a board
 
-```shell
+```text
 $ lionel cards "Golang the musical"
 To do (1)
 =========
