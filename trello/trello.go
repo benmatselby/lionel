@@ -13,7 +13,7 @@ const baseURL = "https://api.trello.com/1/"
 
 // API defines the interface for the client
 type API interface {
-	GetBoards() (Boards, error)
+	GetBoards() ([]Board, error)
 }
 
 // Client is the Trello concrete implementation
@@ -65,16 +65,17 @@ func (c *Client) get(url string, response interface{}) (*http.Response, error) {
 	return httpRes, nil
 }
 
-// Boards defines what we receive for the get boards call
-type Boards []struct {
+// Board defines what a single board looks like
+type Board struct {
+	ID     string `json:"id"`
 	Name   string `json:"name"`
 	Desc   string `json:"desc"`
 	Closed bool   `json:"closed"`
 }
 
 // GetBoards will return a list boards the user can access
-func (c *Client) GetBoards() (Boards, error) {
-	var response Boards
+func (c *Client) GetBoards() ([]Board, error) {
+	var response []Board
 
 	url := "members/me/boards"
 	_, err := c.get(url, &response)

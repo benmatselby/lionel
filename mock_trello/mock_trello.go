@@ -35,10 +35,10 @@ func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 }
 
 // GetBoards mocks base method
-func (m *MockAPI) GetBoards() (trello.Boards, error) {
+func (m *MockAPI) GetBoards() ([]trello.Board, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetBoards")
-	ret0, _ := ret[0].(trello.Boards)
+	ret0, _ := ret[0].([]trello.Board)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

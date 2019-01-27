@@ -6,7 +6,6 @@ import (
 
 	"github.com/benmatselby/lionel/trello"
 
-	"github.com/benmatselby/lionel/cmd/trello/board"
 	"github.com/benmatselby/lionel/version"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -44,7 +43,7 @@ func NewRootCommand() *cobra.Command {
 	client := trello.New()
 
 	cmd.AddCommand(
-		board.NewBoardCommand(&client),
+		NewListBoardCommand(&client),
 	)
 
 	return cmd

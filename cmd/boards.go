@@ -1,4 +1,4 @@
-package board
+package cmd
 
 import (
 	"fmt"
@@ -9,18 +9,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// ListOptions provides the flags for the `list` command
-type ListOptions struct {
+// ListBoardOptions provides the flags for the `list` command
+type ListBoardOptions struct {
 	ShowClosed bool
 	refs       []string
 }
 
-// NewListCommand creates a new `board list` command
-func NewListCommand(client trello.API) *cobra.Command {
-	var opts ListOptions
+// NewListBoardCommand creates a new `board list` command
+func NewListBoardCommand(client trello.API) *cobra.Command {
+	var opts ListBoardOptions
 
 	cmd := &cobra.Command{
-		Use:   "list",
+		Use:   "boards",
 		Short: "List all the boards",
 		Run: func(cmd *cobra.Command, args []string) {
 			opts.refs = args
@@ -39,7 +39,7 @@ func NewListCommand(client trello.API) *cobra.Command {
 }
 
 // DisplayBoards will render the boards you have access to
-func DisplayBoards(client trello.API, opts ListOptions, w io.Writer) error {
+func DisplayBoards(client trello.API, opts ListBoardOptions, w io.Writer) error {
 	boards, err := client.GetBoards()
 	if err != nil {
 		return err
