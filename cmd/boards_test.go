@@ -1,4 +1,4 @@
-package board_test
+package cmd_test
 
 import (
 	"bufio"
@@ -6,21 +6,21 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/benmatselby/lionel/cmd/trello/board"
+	"github.com/benmatselby/lionel/cmd"
 	"github.com/benmatselby/lionel/mock_trello"
 	"github.com/benmatselby/lionel/trello"
 
 	"github.com/golang/mock/gomock"
 )
 
-func TestNewListCommand(t *testing.T) {
+func TestNewListBoardsCommand(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	client := mock_trello.NewMockAPI(ctrl)
 
-	cmd := board.NewListCommand(client)
+	cmd := cmd.NewListBoardsCommand(client)
 
-	use := "list"
+	use := "boards"
 	short := "List all the boards"
 
 	if cmd.Use != use {
@@ -50,7 +50,7 @@ func TestDisplayBoards(t *testing.T) {
 			defer ctrl.Finish()
 			client := mock_trello.NewMockAPI(ctrl)
 
-			boards := trello.Boards{
+			boards := []trello.Board{
 				{
 					Name:   "Magical board",
 					Closed: false,
@@ -70,11 +70,11 @@ func TestDisplayBoards(t *testing.T) {
 			var b bytes.Buffer
 			writer := bufio.NewWriter(&b)
 
-			opts := board.ListOptions{
+			opts := cmd.ListBoardOptions{
 				ShowClosed: tc.closed,
 			}
 
-			board.DisplayBoards(client, opts, writer)
+			cmd.DisplayBoards(client, opts, writer)
 			writer.Flush()
 
 			if b.String() != tc.output {
