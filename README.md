@@ -6,9 +6,9 @@
 
 _Trello, is it more you're looking for..._
 
-CLI application for getting information out of Trello
+CLI application for getting information out of [Trello](http://trello.com)
 
-```
+```shell
 CLI application for retrieving data from Trello
 
 Usage:
@@ -29,7 +29,7 @@ Use "lionel [command] --help" for more information about a command.
 
 This application uses Go modules, so you will require:
 
-* Go version 1.11+
+- [Go version 1.11+](https://golang.org/dl/)
 
 ## Configuration
 
