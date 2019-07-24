@@ -22,7 +22,7 @@ Available Commands:
   people      List all the cards for a given board sorted by the people the card is assigned to
 
 Flags:
-      --config string   config file (default is $HOME/.lionel.yaml)
+      --config string   config file (default is $HOME/.benmatselby/lionel.yaml)
   -h, --help            help for lionel
 
 Use "lionel [command] --help" for more information about a command.

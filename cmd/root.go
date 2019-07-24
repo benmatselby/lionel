@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/benmatselby/lionel/trello"
 
@@ -38,7 +39,7 @@ func NewRootCommand() *cobra.Command {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	cmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.lionel.yaml)")
+	cmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.benmatselby/lionel.yaml)")
 
 	client := trello.New()
 
@@ -66,9 +67,8 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".lionel" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".lionel")
+		viper.AddConfigPath(strings.Join([]string{home, ".benmatselby"}, "/"))
+		viper.SetConfigName("lionel")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
