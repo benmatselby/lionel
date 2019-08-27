@@ -1,7 +1,6 @@
 # Lionel
 
-[![Build Status](https://travis-ci.org/benmatselby/lionel.png?branch=master)](https://travis-ci.org/benmatselby/lionel)
-[![codecov](https://codecov.io/gh/benmatselby/lionel/branch/master/graph/badge.svg)](https://codecov.io/gh/benmatselby/lionel)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lionel&metric=alert_status)](https://sonarcloud.io/dashboard?id=lionel)
 [![Go Report Card](https://goreportcard.com/badge/github.com/benmatselby/lionel?style=flat-square)](https://goreportcard.com/report/github.com/benmatselby/lionel)
 
 _Trello, is it more you're looking for..._

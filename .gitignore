@@ -1,3 +1,6 @@
 lionel
 vendor/
 coverage.out
+
+# Sonar
+.scannerwork/
