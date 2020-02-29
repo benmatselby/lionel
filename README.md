@@ -91,6 +91,28 @@ export TRELLO_CLI_SECRET=""
 
 Creating a Trello API Token is documented [here](https://developers.trello.com/page/authorization)
 
+## Installation via Docker
+
+Other than requiring [docker](http://docker.com) to be installed, there are no other requirements to run the application this way. This is the preferred method of running the `lionel`. The image is [here](https://hub.docker.com/r/benmatselby/lionel/).
+
+```shell
+$ docker run \
+  --rm \
+  -t \
+  -eTRELLO_CLI_KEY \
+  -eTRELLO_CLI_SECRET \
+  -v "${HOME}/.benmatselby":/root/.benmatselby \
+  benmatselby/lionel:latest "$@"
+```
+
+The `latest` tag mentioned above can be changed to a released version. For all releases, see [here](https://hub.docker.com/repository/docker/benmatselby/lionel/tags). An example would then be:
+
+```shell
+benmatselby/lionel:version-1.1.0
+```
+
+This would use the `verson-1.1.0` release in the docker command.
+
 ## Installation via Git
 
 ```bash
